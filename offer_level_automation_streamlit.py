@@ -16,6 +16,7 @@ from tqdm import tqdm
 import warnings
 import joblib
 import streamlit as st
+import os
 
 warnings.filterwarnings('ignore')
 
@@ -25,9 +26,13 @@ def convert_df(df):
     return df.to_csv().encode("utf-8")
 
 
-uploaded_file = st.file_uploader("Choose a CSV file",type=['csv','xlsx'],accept_multiple_files=False)
+uploaded_file = st.file_uploader("Choose a CSV file",type='csv',accept_multiple_files=False)
+
 if uploaded_file is not None:
     try:
+        filebytes = uploaded_file.read()
+        with open('s.csv', 'wb') as f: 
+            f.write(filebytes)
         new_duration = st.number_input('Enter the New Duration Value')
         new_svc_discount = st.number_input('Enter the New SVC Discount Value')
         new_pru = st.number_input('Enter the New PRU Value')
@@ -39,10 +44,8 @@ if uploaded_file is not None:
             
             column_names = 'DELL_INDUSTRY_TAXONOMY_L1'
             segment_col = 'Offer'
-            try:
-                df=pd.read_csv(uploaded_file)
-            except:
-                df=pd.read_excel(uploaded_file)
+            df=pd.read_csv('s.csv')
+            os.remove('s.csv')
             column_name_unique = df[column_names].unique()
             value_df = pd.read_excel('Imputed_Education_Results.xlsx')
             
@@ -169,7 +172,6 @@ if uploaded_file is not None:
                     SRU_Eqn_ = float(intercept)
                     for i, col in enumerate(ft_names_out):
                         cols = col.split(' ')
-                        print(cols)
                         if len(cols)==1:
                             SRU_Eqn_ += round(coefficients[i],4) * X[cols[0]]
                         else:
@@ -218,6 +220,5 @@ if uploaded_file is not None:
             file_name="Offer Level Automation.csv",
             mime="text/csv",
         )
-    except Exception as e:
-        st.write(e)
+    except:
         st.warning('Please upload a valid file', icon="⚠️")
