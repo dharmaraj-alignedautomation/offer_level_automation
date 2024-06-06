@@ -30,11 +30,7 @@ uploaded_file = st.file_uploader("Choose a CSV file",type='csv',accept_multiple_
 
 if uploaded_file is not None:
     try:
-        filebytes = uploaded_file.read()
-        with open('s.csv', 'wb') as f: 
-            f.write(filebytes)
-        df=pd.read_csv('s.csv')
-        os.remove('s.csv')
+        df = pd.read_csv(uploaded_file)
         new_duration = st.number_input('Enter the New Duration Value')
         new_svc_discount = st.number_input('Enter the New SVC Discount Value')
         new_pru = st.number_input('Enter the New PRU Value')
