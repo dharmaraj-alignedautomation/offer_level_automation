@@ -218,5 +218,6 @@ if uploaded_file is not None:
             file_name="Offer Level Automation.csv",
             mime="text/csv",
         )
-    except:
+    except Exception as e:
+        print(e)
         st.warning('Please upload a valid file', icon="⚠️")
