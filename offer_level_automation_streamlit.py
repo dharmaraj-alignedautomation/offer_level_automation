@@ -76,10 +76,6 @@ if uploaded_file is not None:
                     filtered_df_ = filtered_df[filtered_df[segment_col]==account_seg]
                     final_df = filtered_df_[selected_columns]
                     target='SRU'
-                    value_df_ = value_df[value_df[column_names] == column_name]
-                    values__ = value_df_[value_df_[segment_col] == account_seg]
-                    values = values__[selected_columns]
-                    values_list = values.drop('SRU',axis=1).to_numpy()
                     model = LinearRegression()
                     np.random.seed(42)
                     X, y = final_df.drop(columns=[target]), final_df[target]
