@@ -219,5 +219,5 @@ if uploaded_file is not None:
             mime="text/csv",
         )
     except Exception as e:
-        print(e)
+        st.write(e)
         st.warning('Please upload a valid file', icon="⚠️")
