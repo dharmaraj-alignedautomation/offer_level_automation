@@ -47,7 +47,6 @@ if uploaded_file is not None:
             df=pd.read_csv('s.csv')
             os.remove('s.csv')
             column_name_unique = df[column_names].unique()
-            value_df = pd.read_excel('Imputed_Education_Results.xlsx')
             
             equation_column_name = ['Revn','New_Revn','Delta','Actual DURATION','New DURATION','Actual AR','New AR','Actual VSP','New VSP','Actual Svc_discount','New Svc_discount','Actual PRU','New PRU','Equation']
             
