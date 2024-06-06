@@ -33,6 +33,8 @@ if uploaded_file is not None:
         filebytes = uploaded_file.read()
         with open('s.csv', 'wb') as f: 
             f.write(filebytes)
+        df=pd.read_csv('s.csv')
+            os.remove('s.csv')
         new_duration = st.number_input('Enter the New Duration Value')
         new_svc_discount = st.number_input('Enter the New SVC Discount Value')
         new_pru = st.number_input('Enter the New PRU Value')
@@ -44,8 +46,7 @@ if uploaded_file is not None:
             
             column_names = 'DELL_INDUSTRY_TAXONOMY_L1'
             segment_col = 'Offer'
-            df=pd.read_csv('s.csv')
-            os.remove('s.csv')
+            
             column_name_unique = df[column_names].unique()
             
             equation_column_name = ['Revn','New_Revn','Delta','Actual DURATION','New DURATION','Actual AR','New AR','Actual VSP','New VSP','Actual Svc_discount','New Svc_discount','Actual PRU','New PRU','Equation']
